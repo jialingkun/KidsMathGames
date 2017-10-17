@@ -1,0 +1,55 @@
+1+1=...
+noimage
+text
+2
+3
+4
+
+Count the apple
+category_2
+text
+4
+5
+6
+
+How many apple are left?
+category_3
+image
+category_1
+category_2
+category_3
+
+Bobby have 5 apples. Then he get another 5 apples. Bobby then eat 5 apples. \nHow many apples did bobby have?
+noimage
+image
+category_1
+category_2
+category_3
+
+1 ... 2
+noimage
+text
+<
+>
+=
+
+Count the apple
+category_3
+text
+4
+5
+6
+
+How many apple are left?
+category_4
+image
+category_1
+category_2
+category_3
+
+Benny have 1 apple. Then he get another 1 apple. Benny then eat 2 apples. \nHow many apples did Benny have?
+noimage
+image
+category_1
+category_2
+category_3

@@ -2,6 +2,7 @@ package com.puzzletrivia.animalmathgames;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -151,8 +152,6 @@ public class CategoryActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_category, container, false);
             final int categoryNumber = getArguments().getInt(ARG_SECTION_NUMBER);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, categoryNumber));
             ImageButton imageButton = (ImageButton) rootView.findViewById(R.id.categoryImage);
             Context context = getContext();
             int id = context.getResources().getIdentifier("category_"+categoryNumber, "drawable", context.getPackageName());
@@ -161,7 +160,9 @@ public class CategoryActivity extends AppCompatActivity {
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("HHHEYY", "onClick: Category number" + categoryNumber);
+                    Intent intent = new Intent(getActivity(), GameActivity.class);
+                    intent.putExtra("CategoryNumber",categoryNumber);
+                    startActivity(intent);
                 }
             });
 
