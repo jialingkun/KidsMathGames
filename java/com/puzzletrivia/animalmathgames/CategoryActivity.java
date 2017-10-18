@@ -87,7 +87,7 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
-        // Images right navigatin
+        // Images right navigation
         rightNav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +118,14 @@ public class CategoryActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request it is that we're responding to
+        if (resultCode == RESULT_OK) {
+            mViewPager.arrowScroll(View.FOCUS_RIGHT);
+        }
     }
 
     /**
@@ -162,7 +170,7 @@ public class CategoryActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), GameActivity.class);
                     intent.putExtra("CategoryNumber",categoryNumber);
-                    startActivity(intent);
+                    startActivityForResult(intent,0);
                 }
             });
 

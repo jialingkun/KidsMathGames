@@ -11,7 +11,20 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true">
 
-        <!--On Text only, Increase text size and margin top-->
+        <TextView
+            android:id="@+id/questionTextOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Greater than, less than, or equal\n8 ... 2"
+            android:textAlignment="center"
+            android:textStyle="bold"
+
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="25dp"
+            />
+
+        <!--On Text only, visibility Gone-->
         <TextView
             android:id="@+id/questionText"
             android:layout_width="wrap_content"
@@ -48,6 +61,7 @@
         android:layout_below="@id/questionLayout">
 
         <LinearLayout
+            android:id="@+id/textAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -64,7 +78,8 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="11+1=10"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:onClick="clickAnswer"/>
             <Button
                 android:id="@+id/answerText2"
                 android:layout_width="wrap_content"
@@ -72,7 +87,8 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="11+1=10"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:onClick="clickAnswer"/>
             <Button
                 android:id="@+id/answerText3"
                 android:layout_width="wrap_content"
@@ -80,12 +96,14 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="11+1=10"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:onClick="clickAnswer"/>
 
         </LinearLayout>
 
 
         <LinearLayout
+            android:id="@+id/imageAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -93,7 +111,7 @@
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
 
-            android:visibility="invisible">
+           >
 
             <ImageButton
                 android:id="@+id/answerImage1"
@@ -102,7 +120,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/category_1"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                android:onClick="clickAnswer"/>
             <ImageButton
                 android:id="@+id/answerImage2"
                 android:layout_width="60dp"
@@ -110,7 +129,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/category_1"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                android:onClick="clickAnswer"/>
             <ImageButton
                 android:id="@+id/answerImage3"
                 android:layout_width="60dp"
@@ -118,7 +138,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/category_1"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                android:onClick="clickAnswer"/>
 
         </LinearLayout>
 
