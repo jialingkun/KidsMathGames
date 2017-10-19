@@ -3,6 +3,7 @@ package com.puzzletrivia.animalmathgames;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -40,7 +41,18 @@ public class CategoryActivity extends AppCompatActivity {
     private ImageButton leftNav;
     private ImageButton rightNav;
 
-    private static final int CATEGORYCOUNT = 4;
+    private ImageButton muteON;
+    private ImageButton muteOFF;
+
+
+    public static MediaPlayer SETap;
+    public static MediaPlayer SEFail;
+    public static MediaPlayer BGM;
+
+    public static boolean preventPause;
+    public static boolean mute;
+
+    private static final int CATEGORYCOUNT = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +74,11 @@ public class CategoryActivity extends AppCompatActivity {
 
         leftNav = (ImageButton) findViewById(R.id.left_nav);
         rightNav = (ImageButton) findViewById(R.id.right_nav);
+
+        muteON = (ImageButton)findViewById(R.id.muteON);
+        muteOFF = (ImageButton)findViewById(R.id.muteOFF);
+
+
 
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
@@ -94,6 +111,68 @@ public class CategoryActivity extends AppCompatActivity {
                 mViewPager.arrowScroll(View.FOCUS_RIGHT);
             }
         });
+
+        // mute ON
+        muteON.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BGM.pause();
+                mute = true;
+                muteON.setVisibility(View.GONE);
+                muteOFF.setVisibility(View.VISIBLE);
+            }
+        });
+
+        // mute OFF
+        muteOFF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BGM.start();
+                mute = false;
+                muteOFF.setVisibility(View.GONE);
+                muteON.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        SETap = MediaPlayer.create(this, R.raw.sound_tap);
+        SEFail = MediaPlayer.create(this, R.raw.sound_fail);
+        BGM = MediaPlayer.create(this, R.raw.sound_bgm);
+        BGM.setLooping(true);
+        preventPause = false;
+
+    }
+
+    public static void playSoundTap(){
+        SETap.start();
+    }
+
+    public static void playSoundFail(){
+        SEFail.start();
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        BGM.release();
+        SETap.release();
+        SEFail.release();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        if (!preventPause){
+            BGM.pause();
+        }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if (BGM != null && !BGM.isPlaying() && !mute){
+            BGM.start();
+        }
 
     }
 
@@ -161,15 +240,17 @@ public class CategoryActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_category, container, false);
             final int categoryNumber = getArguments().getInt(ARG_SECTION_NUMBER);
             ImageButton imageButton = (ImageButton) rootView.findViewById(R.id.categoryImage);
-            Context context = getContext();
+            final Context context = getContext();
             int id = context.getResources().getIdentifier("category_"+categoryNumber, "drawable", context.getPackageName());
             imageButton.setImageResource(id);
 
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    playSoundTap();
                     Intent intent = new Intent(getActivity(), GameActivity.class);
                     intent.putExtra("CategoryNumber",categoryNumber);
+                    preventPause = true;
                     startActivityForResult(intent,0);
                 }
             });

@@ -2,6 +2,7 @@ package com.puzzletrivia.animalmathgames;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +26,7 @@ import java.util.List;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
-    private static final int QUESTIONCOUNT = 3;
+    private static final int QUESTIONCOUNT = 10;
 
     class questionStructure {
         public String question;
@@ -122,6 +123,7 @@ public class GameActivity extends AppCompatActivity {
 
         questionNumber = 0;
         loadQuestion(questionData[questionNumber]);
+
 
 
 
@@ -316,10 +318,14 @@ public class GameActivity extends AppCompatActivity {
         }
 
         if (indicator==0){
+            CategoryActivity.playSoundTap();
+
+
             questionNumber = questionNumber + 1;
             if (questionNumber < QUESTIONCOUNT){
                 ImageView questionNumberImage = (ImageView) findViewById(getApplicationContext().getResources().getIdentifier("questionNumber"+questionNumber,"id", getApplicationContext().getPackageName()));
                 questionNumberImage.setImageResource(R.drawable.game_question_number_completed);
+                answerOrder = fisherYatesShuffle(answerOrder);
                 loadQuestion(questionData[questionNumber]);
             }else{
                 Intent intent = new Intent();
@@ -329,9 +335,26 @@ public class GameActivity extends AppCompatActivity {
 
 
         }else{
+            CategoryActivity.playSoundFail();
+
             view.setVisibility(View.GONE);
         }
 
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+            CategoryActivity.BGM.pause();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if (CategoryActivity.BGM != null && !CategoryActivity.BGM.isPlaying() && !CategoryActivity.mute){
+            CategoryActivity.BGM.start();
+        }
+        CategoryActivity.preventPause = false;
     }
 
 }

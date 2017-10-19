@@ -19,7 +19,7 @@
             android:textAlignment="center"
             android:textStyle="bold"
 
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"
             android:textSize="25dp"
             />
@@ -173,6 +173,48 @@
             android:layout_height="40dp"
             android:scaleType="fitXY"
             android:src="@drawable/game_question_number_3"/>
+        <ImageView
+            android:id="@+id/questionNumber4"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/game_question_number_4"/>
+        <ImageView
+            android:id="@+id/questionNumber5"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/game_question_number_5"/>
+        <ImageView
+            android:id="@+id/questionNumber6"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/game_question_number_6"/>
+        <ImageView
+            android:id="@+id/questionNumber7"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/game_question_number_7"/>
+        <ImageView
+            android:id="@+id/questionNumber8"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/game_question_number_8"/>
+        <ImageView
+            android:id="@+id/questionNumber9"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/game_question_number_9"/>
+        <ImageView
+            android:id="@+id/questionNumber10"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/game_question_number_10"/>
     </LinearLayout>
 
 

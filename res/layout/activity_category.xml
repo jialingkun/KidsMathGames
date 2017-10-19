@@ -40,6 +40,21 @@
         android:src="@drawable/ui_arrow_right" />
 
 
+    <ImageButton
+        android:id="@+id/muteON"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:src="@android:drawable/ic_lock_silent_mode_off"/>
+    <ImageButton
+        android:id="@+id/muteOFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:src="@android:drawable/ic_lock_silent_mode"
+        android:visibility="gone"/>
+
+
 
 
 </android.support.design.widget.CoordinatorLayout>
