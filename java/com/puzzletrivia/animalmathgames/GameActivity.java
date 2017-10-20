@@ -62,6 +62,8 @@ public class GameActivity extends AppCompatActivity {
     questionStructure[] questionData;
     List<questionStructure> allQuestionData;
 
+    float deviceWidth;
+
     TextView questionTextOnly;
     TextView questionText;
     ImageView questionImage;
@@ -99,7 +101,8 @@ public class GameActivity extends AppCompatActivity {
         answerImage2 = (ImageButton) findViewById(R.id.answerImage2);
         answerImage3 = (ImageButton) findViewById(R.id.answerImage3);
 
-
+        deviceWidth = getResources().getDisplayMetrics().widthPixels / getResources().getDisplayMetrics().density;
+        questionText.setTextSize(0.03f * deviceWidth);
 
         //get category id
         categoryNumber = getIntent().getIntExtra("CategoryNumber",1);
@@ -215,6 +218,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void loadQuestion(questionStructure currentQuestionData){
+        String text = currentQuestionData.question.replace("\\n", "\n");
 
         //set question
         if (currentQuestionData.questionWithImage){
@@ -222,16 +226,22 @@ public class GameActivity extends AppCompatActivity {
             questionText.setVisibility(View.VISIBLE);
             questionImage.setVisibility(View.VISIBLE);
 
-            questionText.setText(currentQuestionData.question.replace("\\n", "\n"));
+            questionText.setText(text);
             questionImage.setImageResource(currentQuestionData.questionImageID);
         }else{
             questionText.setVisibility(View.GONE);
             questionImage.setVisibility(View.GONE);
             questionTextOnly.setVisibility(View.VISIBLE);
 
-            questionTextOnly.setText(currentQuestionData.question.replace("\\n", "\n"));
-        }
+            questionTextOnly.setText(text);
 
+            if (text.length()>20){
+                questionTextOnly.setTextSize(0.03f * deviceWidth);
+            }else{
+                questionTextOnly.setTextSize(0.045f * deviceWidth);
+            }
+
+        }
         //set answer
         if (currentQuestionData.answerWithImage){
             textAnswerLayout.setVisibility(View.GONE);
@@ -255,6 +265,20 @@ public class GameActivity extends AppCompatActivity {
             answerText1.setText(getAnswerText(answerOrder[0],currentQuestionData));
             answerText2.setText(getAnswerText(answerOrder[1],currentQuestionData));
             answerText3.setText(getAnswerText(answerOrder[2],currentQuestionData));
+
+            text = getAnswerText(answerOrder[0],currentQuestionData);
+            if (text.length()<10){
+                textAnswerLayout.setOrientation(LinearLayout.HORIZONTAL);
+                answerText1.setTextSize(0.042f * deviceWidth);
+                answerText2.setTextSize(0.042f * deviceWidth);
+                answerText3.setTextSize(0.042f * deviceWidth);
+
+            }else{
+                textAnswerLayout.setOrientation(LinearLayout.VERTICAL);
+                answerText1.setTextSize(0.03f * deviceWidth);
+                answerText2.setTextSize(0.03f * deviceWidth);
+                answerText3.setTextSize(0.03f * deviceWidth);
+            }
         }
     }
 

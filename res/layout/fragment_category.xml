@@ -10,11 +10,11 @@
 
     <ImageButton
         android:id="@+id/categoryImage"
-        android:layout_width="200dp"
-        android:layout_height="250dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:background="@null"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         android:src="@drawable/category_1"/>
 
 </RelativeLayout>

@@ -38,11 +38,10 @@ public class CategoryActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private ImageButton leftNav;
-    private ImageButton rightNav;
 
     private ImageButton muteON;
     private ImageButton muteOFF;
+    private ImageButton share;
 
 
     public static MediaPlayer SETap;
@@ -72,45 +71,13 @@ public class CategoryActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        leftNav = (ImageButton) findViewById(R.id.left_nav);
-        rightNav = (ImageButton) findViewById(R.id.right_nav);
+        int padding = (int) (0.2 * getResources().getDisplayMetrics().widthPixels);
+        mViewPager.setClipToPadding(false);
+        mViewPager.setPadding(padding, 0, padding, 0);
 
         muteON = (ImageButton)findViewById(R.id.muteON);
         muteOFF = (ImageButton)findViewById(R.id.muteOFF);
-
-
-
-        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 0){
-                    leftNav.setVisibility(View.INVISIBLE);
-                }else if (position == 1){
-                    leftNav.setVisibility(View.VISIBLE);
-                }
-                if (position == CATEGORYCOUNT-1){
-                    rightNav.setVisibility(View.INVISIBLE);
-                }else if (position == CATEGORYCOUNT-2){
-                    rightNav.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        // Images left navigation
-        leftNav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.arrowScroll(View.FOCUS_LEFT);
-            }
-        });
-
-        // Images right navigation
-        rightNav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.arrowScroll(View.FOCUS_RIGHT);
-            }
-        });
+        share = (ImageButton)findViewById(R.id.share);
 
         // mute ON
         muteON.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +99,19 @@ public class CategoryActivity extends AppCompatActivity {
                 muteOFF.setVisibility(View.GONE);
                 muteON.setVisibility(View.VISIBLE);
 
+            }
+        });
+
+        // share
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Try this apps!\n https://play.google.com/store/apps/details?id=com.puzzleanimal.alphabet";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Try this apps");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });
 
@@ -280,20 +260,14 @@ public class CategoryActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
+            // Show total pages.
             return CATEGORYCOUNT;
         }
 
+
+
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
             return null;
         }
     }

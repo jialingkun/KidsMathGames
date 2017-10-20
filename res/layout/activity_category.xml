@@ -9,10 +9,11 @@
     tools:context="com.puzzletrivia.animalmathgames.CategoryActivity">
 
 
-
-
-
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ui_background_category"
+        android:scaleType="fitXY"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
@@ -20,41 +21,51 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-    <ImageButton
-        android:id="@+id/left_nav"
-        android:layout_width="42dp"
-        android:layout_height="72dp"
-        android:layout_gravity="center_vertical|left"
-        android:background="@null"
-        android:scaleType="fitXY"
-        android:src="@drawable/ui_arrow_left"
-        android:visibility="invisible"/>
-
-    <ImageButton
-        android:id="@+id/right_nav"
-        android:layout_width="42dp"
-        android:layout_height="72dp"
-        android:layout_gravity="center_vertical|right"
-        android:scaleType="fitXY"
-        android:background="@null"
-        android:src="@drawable/ui_arrow_right" />
-
-
-    <ImageButton
-        android:id="@+id/muteON"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
-        android:src="@android:drawable/ic_lock_silent_mode_off"/>
-    <ImageButton
-        android:id="@+id/muteOFF"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:id="@+id/about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_dialog_info" />
+        <ImageButton
+            android:id="@+id/moreapps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/star_big_on" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|right"
-        android:src="@android:drawable/ic_lock_silent_mode"
-        android:visibility="gone"/>
+        android:layout_gravity="top|left"
+        android:orientation="horizontal"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/muteON"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_lock_silent_mode_off"/>
+            <ImageButton
+                android:id="@+id/muteOFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_lock_silent_mode"
+                android:visibility="gone"/>
+        </RelativeLayout>
 
-
-
+        <ImageButton
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_share" />
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
