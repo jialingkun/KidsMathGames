@@ -3,6 +3,7 @@ package com.puzzletrivia.animalmathgames;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
@@ -20,7 +21,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class CategoryActivity extends AppCompatActivity {
 
@@ -37,6 +41,8 @@ public class CategoryActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
+    private AdView mAdView;
+
     private ViewPager mViewPager;
 
     private ImageButton muteON;
@@ -51,7 +57,14 @@ public class CategoryActivity extends AppCompatActivity {
     public static boolean preventPause;
     public static boolean mute;
 
+    public static View[] categoryView;
+
+    public static SharedPreferences pref;
+    public SharedPreferences.Editor editor;
+
     private static final int CATEGORYCOUNT = 10;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +75,21 @@ public class CategoryActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_category);
-        
+
+        //load ads
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        mAdView.loadAd(adRequest);
+
+
+        categoryView = new View[CATEGORYCOUNT];
+        pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        editor = pref.edit();
+        //editor.clear();
+        editor.putBoolean("finishedCategory"+1, true);
+        editor.commit();
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -183,8 +210,20 @@ public class CategoryActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request it is that we're responding to
         if (resultCode == RESULT_OK) {
+            int categoryFinished = data.getIntExtra("categoryIndexFinished",1);
+            if (!pref.getBoolean("finishedCategory"+(categoryFinished+1), false) && categoryFinished<10){
+                View imageButton = categoryView[categoryFinished].findViewById(R.id.categoryImage);
+                imageButton.setEnabled(true);
+                imageButton = (ImageButton) categoryView[categoryFinished].findViewById(R.id.lock);
+                imageButton.setVisibility(View.GONE);
+
+                editor.putBoolean("finishedCategory"+(categoryFinished+1), true);
+                editor.commit();
+
+            }
             mViewPager.arrowScroll(View.FOCUS_RIGHT);
         }
+
     }
 
     /**
@@ -220,6 +259,7 @@ public class CategoryActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_category, container, false);
             final int categoryNumber = getArguments().getInt(ARG_SECTION_NUMBER);
             ImageButton imageButton = (ImageButton) rootView.findViewById(R.id.categoryImage);
+            ImageButton lock = (ImageButton) rootView.findViewById(R.id.lock);
             final Context context = getContext();
             int id = context.getResources().getIdentifier("category_"+categoryNumber, "drawable", context.getPackageName());
             imageButton.setImageResource(id);
@@ -234,6 +274,24 @@ public class CategoryActivity extends AppCompatActivity {
                     startActivityForResult(intent,0);
                 }
             });
+
+            lock.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    playSoundFail();
+                    Toast.makeText(getActivity(), "Finish previous category first!",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+            if (pref.getBoolean("finishedCategory"+categoryNumber, false)){
+                lock.setVisibility(View.GONE);
+            }else{
+                imageButton.setEnabled(false);
+            }
+
+            categoryView[categoryNumber-1] = rootView;
 
 
             return rootView;

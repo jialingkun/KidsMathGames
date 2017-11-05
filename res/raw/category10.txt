@@ -1,11 +1,13 @@
 1+1=...
+voice_category1_question_1
 noimage
 text
 2
 3
 4
 
-Ana have 6 apples. She give half of all apples she had to bobby. How many apples did bobby and Ana have? 
+Ana have 6 apples. She give half of all apples she had to bobby. How many apples did bobby and Ana have?
+voice_category1_question_1
 noimage
 text
 Bobby 3 apples. Anna 3 Apples
@@ -13,6 +15,7 @@ Bobby 6 apples. Anna have none
 Bobby 1/2 apple. Anna 5 1/2 apples
 
 .... = 5
+voice_category1_question_1
 noimage
 text
 2+3
@@ -20,6 +23,7 @@ text
 2-3
 
 Count the apple
+voice_category1_question_1
 category1_question_1
 text
 4
@@ -27,6 +31,7 @@ text
 6
 
 How many apple are left?
+voice_category1_question_1
 category1_question_4
 image
 category1_question_1
@@ -34,6 +39,7 @@ category1_question_2
 category1_question_3
 
 Bobby have 5 apples. Then he get another 5 apples. Bobby then eat 5 apples. \nHow many apples did bobby have?
+voice_category1_question_1
 noimage
 image
 category1_question_2
@@ -41,6 +47,7 @@ category1_question_1
 category1_question_3
 
 1 ... 2
+voice_category1_question_1
 noimage
 text
 <
@@ -48,6 +55,7 @@ text
 =
 
 Count the apple
+voice_category1_question_1
 category1_question_2
 text
 5
@@ -55,6 +63,7 @@ text
 6
 
 How many apple are left?
+voice_category1_question_1
 category1_question_4
 text
 4
@@ -62,6 +71,7 @@ text
 5
 
 Benny have 1 apple. Then he get another 7 apples. Benny then eat 2 apples. \nHow many apples did Benny have?
+voice_category1_question_1
 noimage
 image
 category1_question_3
@@ -69,13 +79,15 @@ category1_question_2
 category1_question_1
 
 1+1=...
+voice_category1_question_1
 noimage
 text
 2
 3
 4
 
-Ana have 6 apples. She give half of all apples she had to bobby. How many apples did bobby and Ana have? 
+Ana have 6 apples. She give half of all apples she had to bobby. How many apples did bobby and Ana have?
+voice_category1_question_1
 noimage
 text
 Bobby 3 apples. Anna 3 Apples
@@ -83,6 +95,7 @@ Bobby 6 apples. Anna have none
 Bobby 1/2 apple. Anna 5 1/2 apples
 
 .... = 5
+voice_category1_question_1
 noimage
 text
 2+3
@@ -90,6 +103,7 @@ text
 2-3
 
 Count the apple
+voice_category1_question_1
 category1_question_1
 text
 4
@@ -97,6 +111,7 @@ text
 6
 
 How many apple are left?
+voice_category1_question_1
 category1_question_4
 image
 category1_question_1
@@ -104,6 +119,7 @@ category1_question_2
 category1_question_3
 
 Bobby have 5 apples. Then he get another 5 apples. Bobby then eat 5 apples. \nHow many apples did bobby have?
+voice_category1_question_1
 noimage
 image
 category1_question_2
@@ -111,6 +127,7 @@ category1_question_1
 category1_question_3
 
 1 ... 2
+voice_category1_question_1
 noimage
 text
 <
@@ -118,6 +135,7 @@ text
 =
 
 Count the apple
+voice_category1_question_1
 category1_question_2
 text
 5
@@ -125,6 +143,7 @@ text
 6
 
 How many apple are left?
+voice_category1_question_1
 category1_question_4
 text
 4
@@ -132,6 +151,7 @@ text
 5
 
 Benny have 1 apple. Then he get another 7 apples. Benny then eat 2 apples. \nHow many apples did Benny have?
+voice_category1_question_1
 noimage
 image
 category1_question_3

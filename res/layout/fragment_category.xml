@@ -15,6 +15,15 @@
         android:layout_centerInParent="true"
         android:background="@null"
         android:scaleType="fitCenter"
-        android:src="@drawable/category_1"/>
+        />
+    <ImageButton
+        android:id="@+id/lock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ui_lock"
+        />
 
 </RelativeLayout>

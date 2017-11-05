@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +33,7 @@ public class GameActivity extends AppCompatActivity {
 
     class questionStructure {
         public String question;
+        public int questionVoice;
 
         public boolean questionWithImage;
         public int questionImageID;
@@ -64,8 +68,11 @@ public class GameActivity extends AppCompatActivity {
 
     float deviceWidth;
 
-    TextView questionTextOnly;
-    TextView questionText;
+
+    private AdView mAdView;
+
+    Button questionTextOnly;
+    Button questionText;
     ImageView questionImage;
     LinearLayout textAnswerLayout;
     Button answerText1;
@@ -76,6 +83,7 @@ public class GameActivity extends AppCompatActivity {
     ImageButton answerImage2;
     ImageButton answerImage3;
 
+    MediaPlayer voice;
     int questionNumber;
     int[] answerOrder;
 
@@ -89,8 +97,14 @@ public class GameActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
 
-        questionTextOnly = (TextView) findViewById(R.id.questionTextOnly);
-        questionText = (TextView) findViewById(R.id.questionText);
+        //load ads
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        mAdView.loadAd(adRequest);
+
+        questionTextOnly = (Button) findViewById(R.id.questionTextOnly);
+        questionText = (Button) findViewById(R.id.questionText);
         questionImage = (ImageView) findViewById(R.id.questionImage);
         textAnswerLayout = (LinearLayout) findViewById(R.id.textAnswer);
         answerText1 = (Button) findViewById(R.id.answerText1);
@@ -154,31 +168,34 @@ public class GameActivity extends AppCompatActivity {
                         currentQuestion.question = line;
                         break;
                     case 2:
+                        currentQuestion.questionVoice = ctx.getResources().getIdentifier(line,"raw", ctx.getPackageName());
+                        break;
+                    case 3:
                         if (!line.equals("noimage")){
                             currentQuestion.questionWithImage = true;
                             currentQuestion.questionImageID = ctx.getResources().getIdentifier(line,"drawable", ctx.getPackageName());
                         }
                         break;
-                    case 3:
+                    case 4:
                         if (line.equals("image")){
                             currentQuestion.answerWithImage = true;
                         }
                         break;
-                    case 4:
+                    case 5:
                         if (currentQuestion.answerWithImage){
                             currentQuestion.correctImageID = ctx.getResources().getIdentifier(line,"drawable", ctx.getPackageName());
                         }else{
                             currentQuestion.correctAnswer = line;
                         }
                         break;
-                    case 5:
+                    case 6:
                         if (currentQuestion.answerWithImage){
                             currentQuestion.wrongImageID1 = ctx.getResources().getIdentifier(line,"drawable", ctx.getPackageName());
                         }else{
                             currentQuestion.wrongAnswer1 = line;
                         }
                         break;
-                    case 6:
+                    case 7:
                         if (currentQuestion.answerWithImage){
                             currentQuestion.wrongImageID2 = ctx.getResources().getIdentifier(line,"drawable", ctx.getPackageName());
                         }else{
@@ -280,6 +297,13 @@ public class GameActivity extends AppCompatActivity {
                 answerText3.setTextSize(0.03f * deviceWidth);
             }
         }
+
+        //setVoice
+        if (voice!=null){
+            voice.release();
+            voice = null;
+        }
+        voice = MediaPlayer.create(this, currentQuestionData.questionVoice);
     }
 
     private int getAnswerImage(int indicator, questionStructure currentQuestionData){
@@ -351,10 +375,26 @@ public class GameActivity extends AppCompatActivity {
                 questionNumberImage.setImageResource(R.drawable.game_question_number_completed);
                 answerOrder = fisherYatesShuffle(answerOrder);
                 loadQuestion(questionData[questionNumber]);
-            }else{
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                finish();
+            }else if (questionNumber == QUESTIONCOUNT){
+                ImageView questionNumberImage = (ImageView) findViewById(getApplicationContext().getResources().getIdentifier("questionNumber"+questionNumber,"id", getApplicationContext().getPackageName()));
+                questionNumberImage.setImageResource(R.drawable.game_question_number_completed);
+
+                if (CategoryActivity.pref.getBoolean("finishedCategory"+(categoryNumber+1), false)){
+                    Intent intent = new Intent();
+                    intent.putExtra("categoryIndexFinished", categoryNumber);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }else{
+                    Intent intent = new Intent();
+                    intent.putExtra("categoryIndexFinished", categoryNumber);
+                    setResult(RESULT_OK, intent);
+                    findViewById(R.id.game_space).setVisibility(View.INVISIBLE);
+                    findViewById(R.id.unlockMessage).setVisibility(View.VISIBLE);
+                }
+
+
+
+
             }
 
 
@@ -365,6 +405,18 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
+
+    public void clickExit(View view){
+        finish();
+        CategoryActivity.playSoundTap();
+    }
+
+    public void clickVoice(View view){
+        if (voice!=null){
+            voice.start();
+        }
+    }
+
 
     @Override
     protected void onPause(){
@@ -379,6 +431,12 @@ public class GameActivity extends AppCompatActivity {
             CategoryActivity.BGM.start();
         }
         CategoryActivity.preventPause = false;
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        voice.release();
     }
 
 }
